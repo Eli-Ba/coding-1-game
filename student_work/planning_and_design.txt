@@ -1,17 +1,23 @@
 Part I: Planning & Design (15 pts)
 
-* Decide on a game idea and core goal
+* Decide on a game idea and core goal. 
+
 * Game rules and player actions are written or sketched out
+
 * Main objects (player, obstacles, goals, enemies, etc.) are identified
+
 * Sketch a simple plan showing how the game will work step-by-step
 
-Game Idea:
+Game Idea: Making a block breaker typpe of game
 
 
-Game Rules:
+Game Rules: A ball will hit your paddle and launch onto the top of the screen to break blocks if the ball hits the ground you lose if
+it breaks all the blocks you win
 
 
-Major Game Elements:
+Major Game Elements: The ball and the blocks :white_circle: :green_square: :ping_pong:
 
 
-Gameplay Process:
+Gameplay Process: You will start with a ball and once you ove it will hit to the top of the screen and try and black 
+10 by 10 board 3 rounds paddle gets smaller each time
+
