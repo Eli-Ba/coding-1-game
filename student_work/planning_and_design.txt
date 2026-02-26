@@ -15,9 +15,11 @@ Game Rules: A ball will hit your paddle and launch onto the top of the screen to
 it breaks all the blocks you win
 
 
-Major Game Elements: The ball and the blocks :white_circle: :green_square: :ping_pong:
+Major Game Elements: The ball and the blocks 	U+26AA    U+1F532   U+2B05
 
 
-Gameplay Process: You will start with a ball and once you ove it will hit to the top of the screen and try and black 
+Gameplay Process: 
+You will start with a ball and once you ove it will hit to the top of the screen and try to break it 
 10 by 10 board 3 rounds paddle gets smaller each time
+you score by breaking blocks
 
