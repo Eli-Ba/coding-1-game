@@ -41,16 +41,13 @@ def draw_board(stdscr):
         for x in range(game_data['width']):
             # Player
             if x == game_data['player']['x'] and y == game_data['player']['y']:
-                row += game_data['turtle']
+                row += game_data['ball']
             # Eagle
-            elif x == game_data['eagle_pos']['x'] and y == game_data['eagle_pos']['y']:
-                row += game_data['eagle_icon']
+            elif x == game_data['block']['x'] and y == game_data['block']['y']:
+                row += game_data['block']
             # Obstacles
-            elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
-                row += game_data['obstacle']
-            # Collectibles
-            elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['collectibles']):
-                row += game_data['leaf']
+            elif any(o['x'] == x and o['y'] == y for o in game_data['paddle']):
+                row += game_data['paddle']
             else:
                 row += game_data['empty']
         stdscr.addstr(y, 0, row, curses.color_pair(1))
@@ -59,5 +56,5 @@ def draw_board(stdscr):
     stdscr.getkey()  # pause so player can see board
 
 # curses.wrapper(draw_board)
-
-"\U0001F7E2"
+	
+    
