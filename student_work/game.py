@@ -10,8 +10,8 @@
 import curses
 
 game_data = {
-    'width': 5,
-    'height': 5,
+    'width': 15,
+    'height': 15,
     'player': {"x": 0, "y": 0, "score": 0, "energy": 10, "max_energy": 10},
     'eagle_pos': {"x": 4, "y": 4},
     'collectibles': [
@@ -58,4 +58,6 @@ def draw_board(stdscr):
     stdscr.refresh()
     stdscr.getkey()  # pause so player can see board
 
-curses.wrapper(draw_board)
+# curses.wrapper(draw_board)
+
+print("\U0001F7E2")
