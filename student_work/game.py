@@ -60,4 +60,4 @@ def draw_board(stdscr):
 
 # curses.wrapper(draw_board)
 
-print("\U0001F7E2")
+"\U0001F7E2"
