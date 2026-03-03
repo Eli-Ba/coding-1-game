@@ -9,23 +9,15 @@
 import curses
 
 game_data = {
-    'width': 5,
-    'height': 5,
-    'player': {"x": 0, "y": 0, "score": 0, "energy": 10, "max_energy": 10},
-    'eagle_pos': {"x": 4, "y": 4},
-    'collectibles': [
-        {"x": 2, "y": 1, "collected": False},
-    ],
-    'obstacles': [
-        {"x": 1, "y": 2},
-        {"x": 3, "y": 1}
-    ],
+    'width': 15,
+    'height': 15,
+    'player': {"x": 4, "y": 4, "score": 0},
+    'block_pos': {"x": 0, "y": 0},
 
     # ASCII icons
-    'turtle': "\U0001F422",
-    'eagle_icon': "\U0001F985",
-    'obstacle': "\U0001FAA8 ",
-    'leaf': "\U0001F343",
+    'ball': "\U000026AA",
+    'block': "\U0001F532",
+    'paddle': "\U00002796 ",
     'empty': "  "
 }
 
@@ -40,16 +32,12 @@ def draw_board(stdscr):
         for x in range(game_data['width']):
             # Player
             if x == game_data['player']['x'] and y == game_data['player']['y']:
-                row += game_data['turtle']
-            # Eagle
-            elif x == game_data['eagle_pos']['x'] and y == game_data['eagle_pos']['y']:
-                row += game_data['eagle_icon']
-            # Obstacles
-            elif any(o['x'] == x and o['y'] == y for o in game_data['obstacles']):
-                row += game_data['obstacle']
-            # Collectibles
-            elif any(c['x'] == x and c['y'] == y and not c['collected'] for c in game_data['collectibles']):
-                row += game_data['leaf']
+                row += game_data['paddle']
+            # Block
+            elif x == game_data['block_pos']['x'] and y == game_data['block_pos']['y']:
+                row += game_data['block']
+            elif x ==game_data['ball'][game_data['ball']['x']] and y == game_data['ball']['y']:
+                row += game_data['ball']
             else:
                 row += game_data['empty']
         stdscr.addstr(y, 0, row, curses.color_pair(1))
