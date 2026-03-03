@@ -1,4 +1,5 @@
 # # Write your game here
+
 # The goals for this phase include:
 # - Pick out some icons for your game
 # - Establish a starting position for each icon
@@ -11,8 +12,9 @@ import curses
 game_data = {
     'width': 15,
     'height': 15,
-    'player': {"x": 4, "y": 4, "score": 0},
-    'block_pos': {"x": 0, "y": 0},
+    'player': {"x": 7, "y": 7, "score": 0},
+    'block_pos': {"x": 1, "y": 1},
+    'ball_pos': {"x": 4, "y": 4},
 
     # ASCII icons
     'ball': "\U000026AA",
@@ -36,7 +38,8 @@ def draw_board(stdscr):
             # Block
             elif x == game_data['block_pos']['x'] and y == game_data['block_pos']['y']:
                 row += game_data['block']
-            elif x ==game_data['ball']['x'] and y == game_data['ball']['y']:
+            # Ball
+            elif x == game_data['ball_pos']['x'] and y == game_data['ball_pos']['y']:
                 row += game_data['ball']
             else:
                 row += game_data['empty']
@@ -45,9 +48,4 @@ def draw_board(stdscr):
     stdscr.refresh()
     stdscr.getkey()  # pause so player can see board
 
-<<<<<<< HEAD
 curses.wrapper(draw_board)
-=======
-# curses.wrapper(draw_board)
-
->>>>>>> c6460a6 (ahhh)
