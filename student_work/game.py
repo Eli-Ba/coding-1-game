@@ -38,7 +38,7 @@ def draw_board(stdscr):
             # Block
             elif x == game_data['block_pos']['x'] and y == game_data['block_pos']['y']:
                 row += game_data['block']
-            elif x ==game_data['ball']['x'] and y == game_data['ball']['y']:
+            elif x ==game_data['ball_pos']['x'] and y == game_data['ball_pos']['y']:
                 row += game_data['ball']
             else:
                 row += game_data['empty']
@@ -48,3 +48,4 @@ def draw_board(stdscr):
     stdscr.getkey()  # pause so player can see board
 
 curses.wrapper(draw_board)
+
