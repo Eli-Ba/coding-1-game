@@ -36,7 +36,7 @@ def draw_board(stdscr):
             # Block
             elif x == game_data['block_pos']['x'] and y == game_data['block_pos']['y']:
                 row += game_data['block']
-            elif x ==game_data['ball'][game_data['ball']['x']] and y == game_data['ball']['y']:
+            elif x ==game_data['ball']['x'] and y == game_data['ball']['y']:
                 row += game_data['ball']
             else:
                 row += game_data['empty']
