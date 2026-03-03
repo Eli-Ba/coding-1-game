@@ -12,14 +12,14 @@ import curses
 game_data = {
     'width': 15,
     'height': 15,
-    'player': {"x": 4, "y": 4, "score": 0},
+    'player': {"x": 7, "y": 7,},
     'block_pos': {"x": 0, "y": 0},
+    'ball_pos': {"x": 4, "y": 4},
 
     # ASCII icons
-    'turtle': "\U0001F422",
-    'eagle_icon': "\U0001F985",
-    'obstacle': "\U0001FAA8 ",
-    'leaf': "\U0001F343",
+    'ball': "\U000026AA",
+    'block': "\U0001F532",
+    'paddle': "\U00002796 ",
     'empty': "  "
 }
 
@@ -38,7 +38,8 @@ def draw_board(stdscr):
             # Block
             elif x == game_data['block_pos']['x'] and y == game_data['block_pos']['y']:
                 row += game_data['block']
-            elif x ==game_data['ball_pos']['x'] and y == game_data['ball_pos']['y']:
+            # Ball
+            elif x == game_data['ball_pos']['x'] and y == game_data['ball_pos']['y']:
                 row += game_data['ball']
             else:
                 row += game_data['empty']
@@ -48,4 +49,3 @@ def draw_board(stdscr):
     stdscr.getkey()  # pause so player can see board
 
 curses.wrapper(draw_board)
-
