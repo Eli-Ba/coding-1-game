@@ -1,5 +1,4 @@
 # # Write your game here
-
 # The goals for this phase include:
 # - Pick out some icons for your game
 # - Establish a starting position for each icon
@@ -58,4 +57,9 @@ def draw_board(stdscr):
     stdscr.refresh()
     stdscr.getkey()  # pause so player can see board
 
+<<<<<<< HEAD
 curses.wrapper(draw_board)
+=======
+# curses.wrapper(draw_board)
+
+>>>>>>> c6460a6 (ahhh)
