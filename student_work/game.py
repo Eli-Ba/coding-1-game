@@ -21,7 +21,7 @@ game_data = {
     # ASCII icons
     'ball': "\U000026AA",
     'block': "\U0001F532",
-    'paddle': "\U00002796,\U00002796",
+    'paddle': "\U00002796\U00002796",
     'empty': "  "
 }
 
