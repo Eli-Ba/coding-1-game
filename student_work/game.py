@@ -14,7 +14,7 @@ import random
 game_data = {
     'width': 10,
     'height': 10,
-    'player': {"x": 7, "y": 7,},
+    'player': {"x": 10, "y": 10,},
     'block_pos': {"x": 0, "y": 0},
     'ball_pos': {"x": 4, "y": 4},
 
@@ -75,7 +75,6 @@ def move_ball():
         new_x = ex + dx
         new_y = ey + dy
         if 0 <= new_x < game_data['width'] and 0 <= new_y < game_data['height']:
-            if not any(o['x'] == new_x and o['y'] == new_y for o in game_data['obstacles']):
                 game_data['ball_pos']['x'] = new_x
                 game_data['ball_pos']['y'] = new_y
                 break
