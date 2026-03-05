@@ -14,12 +14,12 @@ import random
 game_data = {
     'width': 10,
     'height': 10,
-    'player': {"x": 10, "y": 10,},
+    'player': {"x": 9, "y": 9,},
     'block_pos': {"x": 0, "y": 0},
     'ball_pos': {"x": 4, "y": 4},
 
     # ASCII icons
-    'ball': "\U000026AA\U000025AA",
+    'ball': "\U000026AA\U000026AA",
     'block': "\U0001F532",
     'paddle': "\U00002796 ",
     'empty': "  "
