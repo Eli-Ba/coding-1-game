@@ -8,6 +8,8 @@
 
 # To make this work, you may have to type this into the terminal --> pip install curses
 import curses
+import time
+import random
 
 game_data = {
     'width': 10,
@@ -17,7 +19,7 @@ game_data = {
     'ball_pos': {"x": 4, "y": 4},
 
     # ASCII icons
-    'ball': "\U000026AA",
+    'ball': "\U000026AA\U000025AA",
     'block': "\U0001F532",
     'paddle': "\U00002796 ",
     'empty': "  "
@@ -63,6 +65,21 @@ def move_player(key):
     game_data['player']['x'] = new_x
     game_data['player']['y'] = new_y
 
+
+def move_ball():
+    directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+    random.shuffle(directions)
+    ex, ey = game_data['ball_pos']['x'], game_data['ball_pos']['y']
+
+    for dx, dy in directions:
+        new_x = ex + dx
+        new_y = ey + dy
+        if 0 <= new_x < game_data['width'] and 0 <= new_y < game_data['height']:
+            if not any(o['x'] == new_x and o['y'] == new_y for o in game_data['obstacles']):
+                game_data['ball_pos']['x'] = new_x
+                game_data['ball_pos']['y'] = new_y
+                break
+
 def main(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(True)
@@ -78,8 +95,11 @@ def main(stdscr):
         if key:
             if key.lower() == "q":
                 break
-
             move_player(key)
+
+            move_ball()
+
             draw_board(stdscr)
+            time.sleep(0.2)
 
 curses.wrapper(main)   
