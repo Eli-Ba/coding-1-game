@@ -13,16 +13,17 @@ import time
 game_data = {
     'width': 10,
     'height': 10,
-    'player': {"x": 9, "y": 9},
+    'player': {"x": 9, "y": 9,},
     'block_pos': {"x": 0, "y": 0},
-    'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1},
+    'ball_pos': {"x": 4, "y": 4},
 
     # ASCII icons
-    'ball': "O ",
-    'block': "##",
-    'paddle': "==",
+    'ball': "\U000026AA",
+    'block': "\U0001F532",
+    'paddle': "\U00002796\U00002796",
     'empty': "  "
 }
+
 
 def draw_board(stdscr):
     stdscr.clear()
