@@ -20,7 +20,7 @@ game_data = {
 
     # ASCII icons
     'ball': "\U000026AA",
-    'block': "\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532",
+    'block': "\U0001F532 \U0001F532 \U0001F532 \U0001F532 \U0001F532 \U0001F532 \U0001F532 \U0001F532 \U0001F532 \U0001F532",
     'paddle': "\U00002796\U00002796",
     'empty': "  "
 }
@@ -99,6 +99,6 @@ def main(stdscr):
         move_ball()
 
         draw_board(stdscr)
-        time.sleep(0.1)
+        time.sleep(0.2)
 
 curses.wrapper(main)   
