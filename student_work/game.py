@@ -16,11 +16,11 @@ game_data = {
     'height': 10,
     'player': {"x": 9, "y": 9,},
     'block_pos': {"x": 0, "y": 0},
-    'ball_pos': {"x": 4, "y": 4},
+    'ball_pos': {"x": 4, "y": 4, "direction": ("Ne", "Se", "Sw", "Nw")},
 
     # ASCII icons
     'ball': "\U000026AA",
-    'block': "\U0001F532",
+    'block': "\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532\U0001F532",
     'paddle': "\U00002796\U00002796",
     'empty': "  "
 }
@@ -96,9 +96,9 @@ def main(stdscr):
                 break
             move_player(key)
 
-            move_ball()
+        move_ball()
 
-            draw_board(stdscr)
-            time.sleep(0.2)
+        draw_board(stdscr)
+        time.sleep(0.1)
 
 curses.wrapper(main)   
