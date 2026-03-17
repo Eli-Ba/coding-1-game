@@ -1,14 +1,14 @@
 import curses
 import time
 
-# -- FIXED DATA --
+# -- GAME DATA --
 game_data = {
     'width': 10,
     'height': 10,
     'player': {"x": 4, "y": 9},
-    'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1}, 
+    'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1},
     'blocks': [(x, y) for y in range(2) for x in range(10)],
-    'ball': "\U000026AA",    
+    'ball': "\U000026AA",
     'block': "\U0001F532",
     'paddle': "\U00002796\U00002796",
     'empty': " "
@@ -41,29 +41,35 @@ def move_player(key):
 
 def move_ball():
     ball = game_data['ball_pos']
-    
-    # Move ball
-    ball['x'] += ball['dx']
-    ball['y'] += ball['dy']
 
-    # Wall collisions (left/right)
+    # --- tick counter for smooth diagonal ---
+    if not hasattr(move_ball, "tick"):
+        move_ball.tick = 0
+    move_ball.tick += 1
+
+    # Move horizontally every frame
+    ball['x'] += ball['dx']
+
+    # Move vertically every other frame (fixes aspect ratio)
+    if move_ball.tick % 2 == 0:
+        ball['y'] += ball['dy']
+
+    # --- Wall collisions ---
     if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
         ball['dx'] *= -1
+        ball['x'] += ball['dx']
 
-    # Ceiling collision
     if ball['y'] <= 0:
         ball['dy'] *= -1
+        ball['y'] += ball['dy']
 
-    # Clamp position
-    ball['x'] = max(0, min(ball['x'], game_data['width'] - 1))
-    ball['y'] = max(0, min(ball['y'], game_data['height'] - 1))
-
-    # Paddle collision
+    # --- Paddle collision ---
     px, py = game_data['player']['x'], game_data['player']['y']
     if ball['y'] == py - 1 and px <= ball['x'] <= px + 1:
         ball['dy'] *= -1
+        ball['y'] += ball['dy']
 
-    # Block collision
+    # --- Block collision ---
     hit_block = None
     for block in game_data['blocks']:
         if (ball['x'], ball['y']) == block:
@@ -73,10 +79,12 @@ def move_ball():
     if hit_block:
         game_data['blocks'].remove(hit_block)
         ball['dy'] *= -1
+        ball['y'] += ball['dy']
 
-    # Bottom collision (still bounces)
+    # --- Bottom collision ---
     if ball['y'] >= game_data['height'] - 1:
         ball['dy'] *= -1
+        ball['y'] += ball['dy']
 
 def main(stdscr):
     curses.curs_set(0)
@@ -100,7 +108,7 @@ def main(stdscr):
             
         move_ball()
         draw_board(stdscr)
-        time.sleep(0.1)
+        time.sleep(0.08)  # slightly smoother
 
 # Run the game
 curses.wrapper(main)
