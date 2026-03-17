@@ -109,6 +109,5 @@ def main(stdscr):
         move_ball()
         draw_board(stdscr)
         time.sleep(0.1)
-if ball_pos == 
 # Run the game
 curses.wrapper(main)
