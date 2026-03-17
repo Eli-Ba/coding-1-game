@@ -46,15 +46,34 @@ def move_player(key):
 
 def move_ball():
     ball = game_data['ball_pos']
-    
-    # Move ball by constant velocity
+    player = game_data['player']
+    blocks = game_data['blocks']
+
     ball['x'] += ball['dx']
     ball['y'] += ball['dy']
-    
-    # Simple Wall Bounce Logic
+
     if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
         ball['dx'] *= -1
-    if ball['y'] <= 0 or ball['y'] >= game_data['height'] - 1:
+
+    if ball['y'] <= 0:
+        ball['dy'] *= -1
+
+    px, py = player['x'], player['y']
+    if ball['y'] == py - 1 and px <= ball['x'] <= px + 1:
+        ball['dy'] *= -1
+
+    hit_block = None
+    for block in blocks:
+        bx, by = block
+        if ball['x'] == bx and ball['y'] == by:
+            hit_block = block
+            break
+
+    if hit_block:
+        blocks.remove(hit_block)
+        ball['dy'] *= -1
+
+    if ball['y'] >= game_data['height'] - 1:
         ball['dy'] *= -1
 
 def main(stdscr):
