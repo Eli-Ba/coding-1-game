@@ -5,7 +5,7 @@ import time
 game_data = {
     'width': 10,
     'height': 10,
-    'player': {"x": 4, "y": 9},
+    'player': {"x": 4, "y": 8},
     'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1}, 
     'blocks': [(x, y) for y in range(2) for x in range(10)],
     'ball': "\U000026AA",    
