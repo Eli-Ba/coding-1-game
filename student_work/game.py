@@ -5,11 +5,9 @@ import time
 game_data = {
     'width': 10,
     'height': 10,
-    'player': {"x": 4, "y": 9}, # Started in center
-    'block_pos': {"x": 0, "y": 0},
-    # REMOVED random options, added constant velocity (dx, dy)
+    'player': {"x": 4, "y": 9},
     'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1}, 
-    # ASCII icons
+    'blocks': [(x, y) for y in range(2) for x in range(10)],
     'ball': "\U000026AA",                
     'block': "\U0001F532",
     'paddle': "\U00002796\U00002796",
@@ -17,28 +15,25 @@ game_data = {
 }
 
 def draw_board(stdscr):
-    curses.start_color()
-    curses.use_default_colors()
-    curses.init_pair(1, curses.COLOR_WHITE, -1)
     stdscr.clear()
     
     # Draw blocks
-    for y in range(2): # Simple block top row
-        for x in range(game_data['width']):
-            stdscr.addstr(y, x*2, game_data['block'], curses.color_pair(1))
+    for (x, y) in game_data['blocks']:
+        stdscr.addstr(y, x, game_data['block'])
 
     # Draw player
     px, py = game_data['player']['x'], game_data['player']['y']
-    stdscr.addstr(py, px, game_data['paddle'], curses.color_pair(1))
+    stdscr.addstr(py, px, game_data['paddle'])
     
     # Draw ball
     bx, by = game_data['ball_pos']['x'], game_data['ball_pos']['y']
-    stdscr.addstr(by, bx, game_data['ball'], curses.color_pair(1))
+    stdscr.addstr(by, bx, game_data['ball'])
     
     stdscr.refresh()
 
 def move_player(key):
     x = game_data['player']['x']
+    
     if key == "a" and x > 0:
         game_data['player']['x'] -= 1
     elif key == "d" and x < game_data['width'] - 2:
@@ -49,23 +44,26 @@ def move_ball():
     player = game_data['player']
     blocks = game_data['blocks']
 
+    # Move ball
     ball['x'] += ball['dx']
     ball['y'] += ball['dy']
 
+    # Wall collisions
     if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
         ball['dx'] *= -1
 
     if ball['y'] <= 0:
         ball['dy'] *= -1
 
+    # Paddle collision
     px, py = player['x'], player['y']
     if ball['y'] == py - 1 and px <= ball['x'] <= px + 1:
         ball['dy'] *= -1
 
+    # Block collision
     hit_block = None
     for block in blocks:
-        bx, by = block
-        if ball['x'] == bx and ball['y'] == by:
+        if (ball['x'], ball['y']) == block:
             hit_block = block
             break
 
@@ -73,17 +71,23 @@ def move_ball():
         blocks.remove(hit_block)
         ball['dy'] *= -1
 
+    # Bottom collision (simple bounce for now)
     if ball['y'] >= game_data['height'] - 1:
         ball['dy'] *= -1
 
 def main(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(True)
+
+    # Initialize colors ONCE
+    curses.start_color()
+    curses.use_default_colors()
+    curses.init_pair(1, curses.COLOR_WHITE, -1)
     
     while True:
         try:
             key = stdscr.getkey()
-        except:
+        except curses.error:
             key = None
             
         if key == "q":
@@ -94,7 +98,7 @@ def main(stdscr):
             
         move_ball()
         draw_board(stdscr)
-        time.sleep(0.1) # Controlled speed
+        time.sleep(0.1)
 
 # Run the game
 curses.wrapper(main)
