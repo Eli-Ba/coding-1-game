@@ -8,7 +8,7 @@ game_data = {
     'player': {"x": 4, "y": 9},
     'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1}, 
     'blocks': [(x, y) for y in range(2) for x in range(10)],
-    'ball': "\U000026AA",                
+    'ball': "\U000026AA",    
     'block': "\U0001F532",
     'paddle': "\U00002796\U00002796",
     'empty': " "
@@ -45,50 +45,36 @@ def move_ball():
     # Move ball
     ball['x'] += ball['dx']
     ball['y'] += ball['dy']
-    
-    hit_wall = False
 
-    if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
-        hit_wall = True
-
-    if ball['y'] <= 0 or ball['y'] >= game_data['height']:
-        hit_wall = True
-
-    if hit_wall:
-        for i, d in enumerate(DIRECTIONS):
-            if d['dx'] == ball['dx'] and d['dy'] == ball['dy']:
-                next_dir = DIRECTIONS[(i + 1) % 4]
-                ball['dx'] = next_dir['dx']
-                ball['dy'] = next_dir['dy']
-                break
-
-    ball['x'] = max(0, min(ball['x'], game_data['width'] - 1))
-    ball['y'] = max(0, min(ball['y'], game_data['height']))
-
-    # Wall collisions
+    # Wall collisions (left/right)
     if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
         ball['dx'] *= -1
 
+    # Ceiling collision
     if ball['y'] <= 0:
         ball['dy'] *= -1
 
+    # Clamp position
+    ball['x'] = max(0, min(ball['x'], game_data['width'] - 1))
+    ball['y'] = max(0, min(ball['y'], game_data['height'] - 1))
+
     # Paddle collision
-    px, py = player['x'], player['y']
+    px, py = game_data['player']['x'], game_data['player']['y']
     if ball['y'] == py - 1 and px <= ball['x'] <= px + 1:
         ball['dy'] *= -1
 
     # Block collision
     hit_block = None
-    for block in blocks:
+    for block in game_data['blocks']:
         if (ball['x'], ball['y']) == block:
             hit_block = block
             break
 
     if hit_block:
-        blocks.remove(hit_block)
+        game_data['blocks'].remove(hit_block)
         ball['dy'] *= -1
 
-    # Bottom collision (simple bounce for now)
+    # Bottom collision (still bounces)
     if ball['y'] >= game_data['height'] - 1:
         ball['dy'] *= -1
 
@@ -96,7 +82,6 @@ def main(stdscr):
     curses.curs_set(0)
     stdscr.nodelay(True)
 
-    # Initialize colors ONCE
     curses.start_color()
     curses.use_default_colors()
     curses.init_pair(1, curses.COLOR_WHITE, -1)
