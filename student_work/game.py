@@ -41,12 +41,29 @@ def move_player(key):
 
 def move_ball():
     ball = game_data['ball_pos']
-    player = game_data['player']
-    blocks = game_data['blocks']
-
+    
     # Move ball
     ball['x'] += ball['dx']
     ball['y'] += ball['dy']
+    
+    hit_wall = False
+
+    if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
+        hit_wall = True
+
+    if ball['y'] <= 0 or ball['y'] >= game_data['height']:
+        hit_wall = True
+
+    if hit_wall:
+        for i, d in enumerate(DIRECTIONS):
+            if d['dx'] == ball['dx'] and d['dy'] == ball['dy']:
+                next_dir = DIRECTIONS[(i + 1) % 4]
+                ball['dx'] = next_dir['dx']
+                ball['dy'] = next_dir['dy']
+                break
+
+    ball['x'] = max(0, min(ball['x'], game_data['width'] - 1))
+    ball['y'] = max(0, min(ball['y'], game_data['height']))
 
     # Wall collisions
     if ball['x'] <= 0 or ball['x'] >= game_data['width'] - 1:
