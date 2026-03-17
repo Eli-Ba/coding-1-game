@@ -11,7 +11,7 @@ game_data = {
     'ball_pos': {"x": 4, "y": 4, "dx": 1, "dy": -1}, 
     # ASCII icons
     'ball': "\U000026AA",                
-    'block': "\U0001F532 \U0001F532 \U0001F532 \U0001F532",
+    'block': "\U0001F532 \U0001F532 \U0001F532",
     'paddle': "\U00002796\U00002796",
     'empty': " "
 }
