@@ -108,7 +108,7 @@ def main(stdscr):
             
         move_ball()
         draw_board(stdscr)
-        time.sleep(0.08)  # slightly smoother
+        time.sleep(0.1)
 
 # Run the game
 curses.wrapper(main)
